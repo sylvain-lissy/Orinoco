@@ -87,11 +87,12 @@ fetch("http://localhost:3000/api/teddies/" + id)
         //D'abord afficher l'alerte
         $('#teddyAlertMessage').modal('show')
             //Creer l'ajout dans localstorage
-            teddyAdopter = {name: teddySelected.name, 
-                            color: teddyColor.value, 
-                            id: teddySelected._id, 
-                            quantity: 1, 
-                            price: teddySelected.price / 100,
+            teddyAdopter = {teddyName: teddySelected.name, 
+                            teddyColor: teddyColor.value, 
+                            teddyId: teddySelected._id, 
+                            teddyQuantity: 1, 
+                            teddyPrice: teddySelected.price / 100,
+                            teddyImageUrl: teddySelected.imageUrl
             }
             //console.log(teddyAdopter)
         //Creation message pour l'alerte
@@ -141,7 +142,7 @@ fetch("http://localhost:3000/api/teddies/" + id)
             addTeddyGoBasket.addEventListener("click", function (event) {
             event.preventDefault()
             teddyAuPanier = JSON.parse(localStorage.getItem('adoptionTeddies'))
-            const teddyColor = teddyColor.value
+            //const teddyColor = teddyColor.value
             if(teddyAuPanier) {
                 teddyAuPanier.push(teddyAdopter)
                 localStorage.setItem('adoptionTeddies', JSON.stringify(teddyAuPanier))
@@ -149,9 +150,9 @@ fetch("http://localhost:3000/api/teddies/" + id)
                 window.location.href ="basket.html"
             }else{
                 teddyAuPanier = []
-                TeddyAuPanier.push(teddyAdopter)
-                localStorage.setItem('adoptionTeddies', JSON.stringify(TeddyAuPanier))
-                //console.log(TeddyAuPanier)
+                teddyAuPanier.push(teddyAdopter)
+                localStorage.setItem('adoptionTeddies', JSON.stringify(teddyAuPanier))
+                //console.log(teddyAuPanier)
                 window.location.href ="basket.html"                
             }
         })

@@ -25,7 +25,7 @@ fetch("http://localhost:3000/api/teddies")
         teddyBasketLink.innerHTML = teddyBasketText
         teddyBasketCount.appendChild(teddyBasketLink)
     }
-    //
+    //Creation du tableau des teddies
     const mainTeddy = document.getElementById("teddies_list")
     teddiesList.forEach(teddyList => {
       const divTeddy = document.createElement("div")
