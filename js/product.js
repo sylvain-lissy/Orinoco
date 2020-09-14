@@ -1,33 +1,34 @@
-//$('#teddyZoomModal').modal('show')
+//Construction lien panier avec compteur et tooltip
+const teddyBasket = JSON.parse(localStorage.getItem('adoptionTeddies'))
+const teddyBasketCount = document.getElementById("teddyBasketCount")
+const teddyBasketLink = document.createElement("a")
+teddyBasketLink.classList.add("nav-link", "text-primary", "h5")
+teddyBasketLink.setAttribute("href", "basket.html")
+teddyBasketLink.setAttribute("data-toggle", "tooltip")
+teddyBasketLink.setAttribute("data-placement", "bottom")
+if (teddyBasket){
+    teddyBasketLink.setAttribute("title" ,"Il y a " + teddyBasket.length + " adoption(s) en attente !")
+    const teddyBasketText = `Panier (${teddyBasket.length})`
+    teddyBasketLink.innerHTML = teddyBasketText
+    teddyBasketCount.appendChild(teddyBasketLink)
+}else{
+    teddyBasketLink.setAttribute("title" ,"Il n'y a aucune adoption en attente !")
+    const teddyBasketText = `Panier`
+    teddyBasketLink.innerHTML = teddyBasketText
+    teddyBasketCount.appendChild(teddyBasketLink)
+}
 
 //récupération de l'ID de l'ourson de la page
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const id = urlParams.get('id');
 //console.log(id);
+
+//Connection à la base de données
 fetch("http://localhost:3000/api/teddies/" + id)
   .then(teddySelected => teddySelected.json())
   .then(teddySelected => {
     //console.log(teddySelected)
-    //Construction lien panier avec compteur et tooltip
-    const teddyBasket = JSON.parse(localStorage.getItem('adoptionTeddies'))
-    const teddyBasketCount = document.getElementById("teddyBasketCount")
-    const teddyBasketLink = document.createElement("a")
-    teddyBasketLink.classList.add("nav-link", "text-primary", "h5")
-    teddyBasketLink.setAttribute("href", "basket.html")
-    teddyBasketLink.setAttribute("data-toggle", "tooltip")
-    teddyBasketLink.setAttribute("data-placement", "bottom")
-    if (teddyBasket){
-        teddyBasketLink.setAttribute("title" ,"Il y a " + teddyBasket.length + " adoption(s) en attente !")
-        const teddyBasketText = `Panier (${teddyBasket.length})`
-        teddyBasketLink.innerHTML = teddyBasketText
-        teddyBasketCount.appendChild(teddyBasketLink)
-    }else{
-        teddyBasketLink.setAttribute("title" ,"Il n'y a aucune adoption en attente !")
-        const teddyBasketText = `Panier`
-        teddyBasketLink.innerHTML = teddyBasketText
-        teddyBasketCount.appendChild(teddyBasketLink)
-    }
     //Construction H2 au nom du teddy
     const teddyName = document.getElementById("teddyName")
     const h2Name = document.createElement("h2")

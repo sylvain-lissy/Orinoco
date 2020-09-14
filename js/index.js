@@ -1,11 +1,3 @@
-//Recuperation des données
-fetch("http://localhost:3000/api/teddies")
-  //Formatage reponse au format JSON
-  .then(teddiesList => teddiesList.json())
-  // Recuperation du JSON tableau des oursons //
-  .then(teddiesList => {
-    // Log du tableau
-    //console.log(teddiesList)
     //Construction lien panier avec compteur et tooltip
     const teddyBasket = JSON.parse(localStorage.getItem('adoptionTeddies'))
     const teddyBasketCount = document.getElementById("teddyBasketCount")
@@ -25,6 +17,14 @@ fetch("http://localhost:3000/api/teddies")
         teddyBasketLink.innerHTML = teddyBasketText
         teddyBasketCount.appendChild(teddyBasketLink)
     }
+
+//Connection à la base de données
+fetch("http://localhost:3000/api/teddies")
+  //Formatage reponse au format JSON
+  .then(teddiesList => teddiesList.json())
+  // Recuperation du JSON tableau des oursons //
+  .then(teddiesList => {
+    //console.log(teddiesList)
     //Creation du tableau des teddies
     const mainTeddy = document.getElementById("teddies_list")
     teddiesList.forEach(teddyList => {
