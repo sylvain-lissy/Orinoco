@@ -81,24 +81,99 @@
     <!----------------------------- MODAL VIDER PANIER ----------------------------------------------------------->
     <div class="modal fade" id="EmptyBasket" tabindex="-1" aria-labelledby="ViderPanier" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Confirmation</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Êtes-vous sur de vouloir annuler votre demande d'adoption (vider le panier) ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-danger" id="ConfirmDeleteBasket">Vider le panier</button>
+                </div>
             </div>
-            <div class="modal-body">
-              Êtes-vous sur de vouloir annuler votre demande d'adoption (vider le panier) ?
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-              <button type="button" class="btn btn-danger" id="ConfirmDeleteBasket">Vider le panier</button>
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
+    <!----------------------------- MODAL SUPPRIMER UN TEDDY ----------------------------------------------------------->
+    <div class="modal fade" id="DeleteTeddy" tabindex="-1" aria-labelledby="SupprimerOurson" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Êtes-vous sur de vouloir annuler cette demande d'adoption ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-danger" id="ConfirmDeleteTeddy">Supprimer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!----------------------------- MODAL PASSER COMMANDE ----------------------------------------------------------->
+    <div class="modal fade" id="FormCommand" tabindex="-1" aria-labelledby="FormulaireCommande" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Formulaire de commande</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="needs-validation">
+                    <div class="modal-body align-items-center">
+                        Merci de bien vouloir remplir le formulaire pour valider l'adoption !
+                        <hr>
+                        <div class="form-group row">
+                            <label for="formNom" class="col-sm-2 col-form-label">Nom</label>
+                            <div class="col-sm-4">
+                              <input type="text" class="form-control form-control-sm" id="formNom" required>
+                            </div>
+                            <label for="formPrenom" class="col-sm-2 col-form-label">Prénom</label>
+                            <div class="col-sm-4">
+                              <input type="text" class="form-control form-control-sm" id="formPrenom" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="formEmail" class="col-sm-2 col-form-label">E-mail</label>
+                            <div class="col-sm-10">
+                              <input type="email" class="form-control form-control-sm" id="formEmail" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="formAdresse" class="col-sm-2 col-form-label">Adresse</label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control form-control-sm" id="formAdresse" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="formCodePostal" class="col-sm-3 col-lg-2 col-form-label">Code Postal</label>
+                            <div class="col-sm-3 col-lg-2">
+                              <input type="text" class="form-control form-control-sm" id="formCodePostal" required>
+                            </div>
+                            <label for="formVille" class="col-sm-2 col-form-label">Ville</label>
+                            <div class="col-sm-4 col-lg-6">
+                              <input type="text" class="form-control form-control-sm" id="formVille" required>
+                            </div>
+                        </div>
 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-success" id="ValiderCommande">Valider</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
