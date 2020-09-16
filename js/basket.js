@@ -101,8 +101,6 @@
                 localStorage.removeItem('adoptionTeddies') 
                 window.location.href ="basket.html"
         })
-
-
     } 
     //Supprimer un seul Teddy
     // on récupére l'article associé au bouton poubelle
@@ -126,7 +124,6 @@
             })
         })
     }
-
     //Céation du formulaire pour passer commande
     //Afficher la modal du formulaire
     const ValiderAdoption = document.getElementById("ValiderAdoption")
@@ -145,7 +142,7 @@
     nom.addEventListener("change", function (event) {
         if (valideDivers(nom.value)) {
         } else {
-            alert( "Erreur de nom!")
+            // alert( "Erreur de nom!")
             event.preventDefault()
         }
     })
@@ -154,7 +151,7 @@
     prenom.addEventListener("change", function (event) {
         if (valideDivers(prenom.value)) {
         } else {
-            alert( "Erreur de prénom!")
+            // alert( "Erreur de prénom!")
             event.preventDefault()    
         }
     });
@@ -163,7 +160,7 @@
     adresse.addEventListener("change", function (event) {
         if (valideAdresse(adresse.value)){
         } else {
-            alert( "Erreur d'adresse!")
+            // alert( "Erreur d'adresse!")
             event.preventDefault()
         }
     });
@@ -172,7 +169,7 @@
     ville.addEventListener("change", function (event) {
         if (valideDivers(ville.value)) {
         } else {
-            alert( "Erreur de ville!")
+            // alert( "Erreur de ville!")
             event.preventDefault()
         }
     });
@@ -181,20 +178,19 @@
     email.addEventListener("change", function (event) {
         if (valideEmail(email.value)){
         } else {
-            alert( "Erreur d'email!")
+            // alert( "Erreur d'email!")
             event.preventDefault()
         }
     });
-   
     //Si tout est correctement rempli alors on passe à la commande
     const ValidateCommand = document.getElementById("ValiderCommande")
     ValidateCommand.addEventListener("click", function (event) {
+        event.preventDefault();
         if(     valideDivers(nom.value) && 
                 valideDivers(prenom.value) && 
                 valideAdresse(adresse.value) && 
                 valideDivers(ville.value) && 
                 valideEmail(email.value)){    
-            event.preventDefault();
             //on créer un total
             localStorage.setItem('montantCommande', teddyTotalBasket);
             const montantCommande = localStorage.getItem('montantCommande');
@@ -231,7 +227,6 @@
                         localStorage.setItem("numeroCommande", numeroCommande.orderId)
                         window.location = "confirm.html"
                         localStorage.removeItem("adoptionTeddies")
-
                     } else {
                         event.preventDefault()
                         //console.log('Retour du serveur : ', retourServeur.status)
