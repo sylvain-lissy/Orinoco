@@ -1,22 +1,19 @@
-    //Construction lien panier avec compteur et tooltip
-    const teddyBasket = JSON.parse(localStorage.getItem('adoptionTeddies'))
-    const teddyBasketCount = document.getElementById("teddyBasketCount")
-    const teddyBasketLink = document.createElement("a")
-    teddyBasketLink.classList.add("nav-link", "text-primary", "h5")
-    teddyBasketLink.setAttribute("href", "basket.html")
-    teddyBasketLink.setAttribute("data-toggle", "tooltip")
-    teddyBasketLink.setAttribute("data-placement", "bottom")
-    if (teddyBasket){
-        teddyBasketLink.setAttribute("title" ,"Il y a " + teddyBasket.length + " adoption(s) en attente !")
-        const teddyBasketText = `Panier (${teddyBasket.length})`
-        teddyBasketLink.innerHTML = teddyBasketText
-        teddyBasketCount.appendChild(teddyBasketLink)
-    }else{
-        teddyBasketLink.setAttribute("title" ,"Il n'y a aucune adoption en attente !")
-        const teddyBasketText = `Panier`
-        teddyBasketLink.innerHTML = teddyBasketText
-        teddyBasketCount.appendChild(teddyBasketLink)
-    }
+//Construction lien panier avec compteur et tooltip
+const teddyBasket = JSON.parse(localStorage.getItem('adoptionTeddies'))
+const teddyBasketCount = document.getElementById("teddyBasketCount")
+const teddyBasketLink = document.createElement("a")
+teddyBasketLink.classList.add("nav-link", "text-primary", "h5")
+teddyBasketLink.setAttribute("href", "basket.html")
+if (teddyBasket){
+    const teddyBasketText = `Panier <span class="badge badge-pill badge-dark text-light">${teddyBasket.length}</span>`
+    teddyBasketLink.innerHTML = teddyBasketText
+    teddyBasketCount.appendChild(teddyBasketLink)
+}else{
+    const teddyBasketText = `Panier <span class="badge badge-pill badge-dark text-light">0</span>`
+    teddyBasketLink.innerHTML = teddyBasketText
+    teddyBasketCount.appendChild(teddyBasketLink)
+}
+
     //Construction H2 au nom du teddy
     const teddyName = document.getElementById("teddyH2Count")
     const h2Name = document.createElement("h2")

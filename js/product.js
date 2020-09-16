@@ -4,16 +4,12 @@ const teddyBasketCount = document.getElementById("teddyBasketCount")
 const teddyBasketLink = document.createElement("a")
 teddyBasketLink.classList.add("nav-link", "text-primary", "h5")
 teddyBasketLink.setAttribute("href", "basket.html")
-teddyBasketLink.setAttribute("data-toggle", "tooltip")
-teddyBasketLink.setAttribute("data-placement", "bottom")
 if (teddyBasket){
-    teddyBasketLink.setAttribute("title" ,"Il y a " + teddyBasket.length + " adoption(s) en attente !")
-    const teddyBasketText = `Panier (${teddyBasket.length})`
+    const teddyBasketText = `Panier <span class="badge badge-pill badge-dark text-light">${teddyBasket.length}</span>`
     teddyBasketLink.innerHTML = teddyBasketText
     teddyBasketCount.appendChild(teddyBasketLink)
 }else{
-    teddyBasketLink.setAttribute("title" ,"Il n'y a aucune adoption en attente !")
-    const teddyBasketText = `Panier`
+    const teddyBasketText = `Panier <span class="badge badge-pill badge-dark text-light">0</span>`
     teddyBasketLink.innerHTML = teddyBasketText
     teddyBasketCount.appendChild(teddyBasketLink)
 }
@@ -53,7 +49,7 @@ fetch("http://localhost:3000/api/teddies/" + id)
                         </select>
                         <p class="card-text col-5 text-right font-weight-bold pr-0 pl-1">Prix : ${teddySelected.price / 100}.00 €</p>  
                     </div>
-                    <button type="submit" name="add" id="submit" class="btn btn-sm btn-outline-primary btn-block">Adopter ${teddySelected.name} ?</button
+                    <button type="submit" name="add" id="submit" class="btn btn-sm btn-outline-primary btn-block">Adopter ${teddySelected.name} ?</button>
                 </form>
             </div>
         </div>`

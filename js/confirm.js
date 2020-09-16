@@ -4,16 +4,12 @@
     const teddyBasketLink = document.createElement("a")
     teddyBasketLink.classList.add("nav-link", "text-primary", "h5")
     teddyBasketLink.setAttribute("href", "basket.html")
-    teddyBasketLink.setAttribute("data-toggle", "tooltip")
-    teddyBasketLink.setAttribute("data-placement", "bottom")
     if (teddyBasket){
-        teddyBasketLink.setAttribute("title" ,"Il y a " + teddyBasket.length + " adoption(s) en attente !")
-        const teddyBasketText = `Panier (${teddyBasket.length})`
+        const teddyBasketText = `Panier <span class="badge badge-pill badge-dark text-light">${teddyBasket.length}</span>`
         teddyBasketLink.innerHTML = teddyBasketText
         teddyBasketCount.appendChild(teddyBasketLink)
     }else{
-        teddyBasketLink.setAttribute("title" ,"Il n'y a aucune adoption en attente !")
-        const teddyBasketText = `Panier`
+        const teddyBasketText = `Panier <span class="badge badge-pill badge-dark text-light">0</span>`
         teddyBasketLink.innerHTML = teddyBasketText
         teddyBasketCount.appendChild(teddyBasketLink)
     }
@@ -39,8 +35,9 @@
                 <p>Vos petits oursons arriveront très prochainement chez vous.</p>
                 <h6>En espérant vous revoir bientôt :)</h6>
             </div>
-            <div class="card-footer bg-light">
-                <h6>Récapitulatif de votre commande :</h6>
+            <div class="alert alert-success rounded-0">
+                <h6 class="alert-heading">Récapitulatif de votre commande :</h6>
+                <hr>
                 <div class="row">
                     <div class="col-sm-4 col-md-3">Numéro :</div>
                     <div class="col user-select-all"><small>${numeroCommande}</small></div>
@@ -48,8 +45,15 @@
                 <div class="row">
                     <div class="col-sm-4 col-md-3">Montant :</div>
                     <div class="col"><small>${montantCommande}.00 €</small></div>
+                    
                 </div>
+            </div>
+            <div class="card-footer">
+                <a href="index.html" class="btn btn-outline-primary btn-block">revenir à l'accueil</a>
             </div>
         </div>`
     recapDiv.innerHTML = recapDivText
     recapitulatifCommande.appendChild(recapDiv)
+
+    //on vide le localstorage
+    localStorage.clear()
