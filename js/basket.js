@@ -38,7 +38,11 @@ if (teddyBasket){
         const teddyBasketNone = document.getElementById("teddiesBasketList")
         const divTeddyItemNone = document.createElement("div")
         divTeddyItemNone.classList.add("row", "p-0", "m-0", "align-items-center")
-        const teddyBasketNoneContent = `<div class="col">Votre panier est tristement vide :(</div>`
+        const teddyBasketNoneContent = `
+            <div class="col">
+            <p class="text-center">Votre panier est tristement vide ...</p>
+            <a href="index.html" class="btn btn-primary btn-block stretched-link">revenir à l'accueil</a>
+            </div>`
         divTeddyItemNone.innerHTML = teddyBasketNoneContent
         teddyBasketNone.appendChild(divTeddyItemNone)
     }
@@ -50,17 +54,16 @@ if (teddyBasket){
         teddyBasket.forEach(teddyItem => {
             const divTeddyItem = document.createElement("div")
             divTeddyItem.classList.add("row", "p-0", "m-1", "bg-light", "justify-content-between", "align-items-center")
-            //divTeddyItem.setAttribute("id", i)
             //console.log(teddyItem[i])
             const teddyBasketItemContent = `            
                     <div class="col-2 p-1 d-none d-sm-block"><img src="${teddyItem.teddyImageUrl}" alt="${teddyItem.teddyName}" class="w-100 m-1"></div>
-                    <div class="col-5 col-md-4 p-1" id=QuantityName>1x ${teddyItem.teddyName}</div>
-                    <div class="col-4 col-md-3 p-1" id="Color">${teddyItem.teddyColor}</div>
-                    <div class="col-2  p-1" id="Price">${teddyItem.teddyPrice} €</div>
+                    <div class="col-5 col-md-4 p-1">1x ${teddyItem.teddyName}</div>
+                    <div class="col-4 col-md-3 p-1">${teddyItem.teddyColor}</div>
+                    <div class="col-2  p-1">${teddyItem.teddyPrice} €</div>
                     <div class="col-1  p-1 RemoveBtn" id="${i}">
                         <button type="button" class="close text-danger" aria-label="Supprimer">
                             <span aria-hidden="true">&times;</span>
-                            </button>
+                        </button>
                     </div>`
             divTeddyItem.innerHTML = teddyBasketItemContent
             teddyBasketItem.appendChild(divTeddyItem)

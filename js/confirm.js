@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <a href="index.html" class="btn btn-outline-primary btn-block">revenir à l'accueil</a>
+                <a href="index.html" class="btn btn-primary btn-block">revenir à l'accueil</a>
             </div>
         </div>`
     recapDiv.innerHTML = recapDivText

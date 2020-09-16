@@ -32,7 +32,7 @@ fetch("http://localhost:3000/api/teddies")
           <div class="card-body">
             <h5 class="card-title">${teddyList.name}</h5>
             <p class="card-text">Prix : ${teddyList.price / 100}.00 €</p>
-            <a href="product.html?id=${teddyList._id}" class="btn btn-outline-primary btn-block stretched-link">Adopter ${teddyList.name} ?</a>
+            <a href="product.html?id=${teddyList._id}" class="btn btn-primary btn-block stretched-link">Adopter ${teddyList.name} ?</a>
           </div>
         </div>`
       divTeddy.innerHTML = text

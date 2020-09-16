@@ -49,7 +49,7 @@ fetch("http://localhost:3000/api/teddies/" + id)
                         </select>
                         <p class="card-text col-5 text-right font-weight-bold pr-0 pl-1">Prix : ${teddySelected.price / 100}.00 €</p>  
                     </div>
-                    <button type="submit" name="add" id="submit" class="btn btn-sm btn-outline-primary btn-block">Adopter ${teddySelected.name} ?</button>
+                    <button type="submit" name="add" id="submit" class="btn btn-sm btn-success btn-block">Adopter ${teddySelected.name} ?</button>
                 </form>
             </div>
         </div>`
