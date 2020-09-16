@@ -140,13 +140,10 @@
     function valideAdresse(value) { return /^[A-Z-a-z-0-9\s]{5,80}$/.test(value)}
     // Verification validité mail
     function valideEmail(value) { return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)}
-    // Verification validité code postal
-    function valideCodePostal(value) { return /^[0-9\s]{5,5}$/.test(value)}
     // Vérification de la validité du nom
     const nom = document.getElementById("formNom")
     nom.addEventListener("change", function (event) {
         if (valideDivers(nom.value)) {
-            alert( "OK!")  
         } else {
             alert( "Erreur de nom!")
             event.preventDefault()
@@ -156,28 +153,17 @@
     const prenom = document.getElementById("formPrenom")
     prenom.addEventListener("change", function (event) {
         if (valideDivers(prenom.value)) {
-            alert( "OK!")
         } else {
-            event.preventDefault()
+            alert( "Erreur de prénom!")
+            event.preventDefault()    
         }
     });
     // Vérification de la validité de l'adresse
     const adresse = document.getElementById("formAdresse")
     adresse.addEventListener("change", function (event) {
         if (valideAdresse(adresse.value)){
-            alert( "OK!")
         } else {
             alert( "Erreur d'adresse!")
-            event.preventDefault()
-        }
-    });
-    // Vérification de la validité du code postal
-    const codepostal = document.getElementById("formCodePostal")
-    codepostal.addEventListener("change", function (event) {
-        if (valideCodePostal(codepostal.value)) {
-            alert( "OK!")
-        } else {
-            alert( "Erreur de code postal!")
             event.preventDefault()
         }
     });
@@ -185,7 +171,6 @@
     const ville = document.getElementById("formVille")
     ville.addEventListener("change", function (event) {
         if (valideDivers(ville.value)) {
-            alert( "OK!")
         } else {
             alert( "Erreur de ville!")
             event.preventDefault()
@@ -195,75 +180,71 @@
     const email = document.getElementById("formEmail")
     email.addEventListener("change", function (event) {
         if (valideEmail(email.value)){
-            alert( "OK!")
         } else {
             alert( "Erreur d'email!")
             event.preventDefault()
         }
     });
+   
     //Si tout est correctement rempli alors on passe à la commande
     const ValidateCommand = document.getElementById("ValiderCommande")
     ValidateCommand.addEventListener("click", function (event) {
         if(     valideDivers(nom.value) && 
                 valideDivers(prenom.value) && 
                 valideAdresse(adresse.value) && 
-                valideCodePostal(codepostal.value) && 
                 valideDivers(ville.value) && 
                 valideEmail(email.value)){    
             event.preventDefault();
             //on créer un total
-            localStorage.setItem('totalPrice', teddyTotalBasket);
-            const storagePrice = localStorage.getItem('totalPrice');
-            console.log(storagePrice);
+            localStorage.setItem('montantCommande', teddyTotalBasket);
+            const montantCommande = localStorage.getItem('montantCommande');
+            //console.log(montantCommande);
             //on crée un contact
-            let contact = {
-                Nom: nom.value,
-                Prenom: prenom.value,
-                Adresse: adresse.value,
-                CodePostal: codepostal.value,
-                Ville: ville.value,
-                Email: email.value
+            const contact = {
+                lastName: nom.value,
+                firstName: prenom.value,
+                address: adresse.value,
+                city: ville.value,
+                email: email.value
             }
-            console.log(contact);
+            //console.log(contact);
             //on crée la liste
-            let products = [];
+            const products = [];
             for (storedTeddy of teddyBasket) {
-                let productsId = storedTeddy.teddyId;
+                const productsId = storedTeddy.teddyId;
                 products.push((productsId));
             }
-            console.log(products);
+            //console.log(products);
             //on rassemble le tout
-            let send = {
-                contact,
-                products,
-            }
-            console.log(send);
+            const infosCommande = {contact, products }
             // on envoie
-            const post = async function (data){
+            const envoieCommande = async function (numeroCommande){
                 try {
-                    let response = await fetch('http://localhost:3000/api/teddies/order', {
-                        method: 'POST',
-                        body: JSON.stringify(data),
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    });
-                    if(response.ok) {
-                        let data = await response.json();
-                        console.log(data.orderId);
-                        localStorage.setItem("responseOrder", data.orderId);
-                        window.location = "confirmation.html";
-                        localStorage.removeItem("newArticle");
+                    const retourServeur = await fetch("http://localhost:3000/api/teddies/order", {
+                        method: "POST",
+                        body: JSON.stringify(numeroCommande),
+                        headers: {"Content-Type": "application/json"}
+                    })
+                    if(retourServeur.ok) {
+                        const numeroCommande = await retourServeur.json()
+                        //console.log(numeroCommande.orderId)
+                        localStorage.setItem("numeroCommande", numeroCommande.orderId)
+                        window.location = "confirm.html"
+                        localStorage.removeItem("adoptionTeddies")
 
                     } else {
-                        event.preventDefault();
-                        console.error('Retour du serveur : ', response.status);
-                        alert('Erreur rencontrée : ' + response.status);
+                        event.preventDefault()
+                        //console.log('Retour du serveur : ', retourServeur.status)
+                        alert('Erreur rencontrée : ' + retourServeur.status)
                     } 
                 } catch (error) {
-                    alert("Erreur : " + error);
+                    alert("Erreur : " + error)
                 } 
-            };
-            post(send);
+            }
+            envoieCommande(infosCommande)
+        }else{
+            //console.log('Commande non envoyé')   
+            //modal erreur
+            $('#erreurServeur').modal('show') 
         }
     })
