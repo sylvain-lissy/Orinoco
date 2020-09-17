@@ -19,7 +19,7 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const id = urlParams.get('id');
 //console.log(id);
-
+if (id === null) {window.location.href ="index.html"}
 //Connection à la base de données
 fetch("http://localhost:3000/api/teddies/" + id)
   .then(teddySelected => teddySelected.json())
