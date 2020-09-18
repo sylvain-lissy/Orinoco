@@ -39,7 +39,7 @@ fetch("http://localhost:3000/api/teddies")
         <div class="card mb-4 mb-lg-0 border-primary shadow">
           <img src="${teddyList.imageUrl}" alt="${teddyList.name}" class="card-img-top">
           <div class="card-body">
-            <h3 class="card-title h5">${teddyList.name}</h5>
+            <h3 class="card-title h5">${teddyList.name}</h3>
             <p class="card-text">Prix : ${teddyList.price / 100}.00 €</p>
             <a href="product.html?id=${teddyList._id}" class="btn btn-primary btn-block stretched-link">Adopter ${teddyList.name} ?</a>
           </div>
@@ -56,7 +56,7 @@ fetch("http://localhost:3000/api/teddies")
         const erreurMessageText = `
             <div class="modal-content border-danger">
                 <div class="modal-header">
-                    <h5 class="modal-title text-danger">Erreur !</h5>
+                    <h3 class="modal-title text-danger h5">Erreur !</h3>
                     <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>-->

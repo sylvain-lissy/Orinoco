@@ -31,15 +31,15 @@
     recapDiv.classList.add("col-12", "col-md-8", "col-lg-6", "mb-3")
     const recapDivText = `
         <div class="card mb-4 mb-lg-0 border-primary shadow">
-            <h3 class="card-header text-center h5">Merci de votre confiance !</h5>
+            <h3 class="card-header text-center h5">Merci de votre confiance !</h3>
             <div class="card-body">
-                <h4 class="h6">Nous vous confirmons votre adoption.</h6>
+                <h4 class="h6">Nous vous confirmons votre adoption.</h4>
                 <p>Toute l'équipe d'Ori-Bears vous remercie  pour votre geste.</p>
                 <p>Vos petits oursons arriveront très prochainement chez vous.</p>
-                <h4 class="h6">En espérant vous revoir bientôt :)</h6>
+                <h4 class="h6">En espérant vous revoir bientôt :)</h4>
             </div>
             <div class="alert alert-success rounded-0">
-                <h4 class="h6" class="alert-heading">Récapitulatif de votre commande :</h6>
+                <h4 class="h6" class="alert-heading">Récapitulatif de votre commande :</h4>
                 <hr>
                 <div class="row">
                     <div class="col-sm-4 col-md-3">Numéro :</div>

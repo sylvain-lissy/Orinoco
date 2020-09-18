@@ -263,7 +263,7 @@ function affichageMessageErreur(messageCodeErreur){
     const erreurMessageText = `
         <div class="modal-content border-danger">
             <div class="modal-header">
-                <h3 class="modal-title text-danger h5">Erreur !</h5>
+                <h3 class="modal-title text-danger h5">Erreur !</h3>
                 <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>-->

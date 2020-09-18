@@ -49,9 +49,9 @@ fetch("http://localhost:3000/api/teddies/" + id)
         const divCardText = `
             <div class="card mb-4 mb-lg-0 border-primary shadow">
                 <img src="${teddySelected.imageUrl}" alt="${teddySelected.name}" class="card-img-top" data-toggle="modal" data-target="#teddyZoomModal">
-                <h3 class="card-header text-center h5">${teddySelected.name}</h5>
+                <h3 class="card-header text-center h5">${teddySelected.name}</h3>
                 <div class="card-body">
-                    <h4 class="card-title h6">${teddySelected.description}</h6>
+                    <h4 class="card-title h6">${teddySelected.description}</h4>
                     <hr>
                     <form id="AddToBasket">
                         <div class="form-group row text-center input-group is-invalid m-0 py-0 pb-3">
@@ -109,7 +109,7 @@ fetch("http://localhost:3000/api/teddies/" + id)
             const teddyAlertMessageT = `
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="teddyAlertMessageModalTitle">Adoption de ${teddySelected.name}</h5>
+                <h3 class="modal-title h5" id="teddyAlertMessageModalTitle">Adoption de ${teddySelected.name}</h3>
             </div>
             <div class="modal-body">
             <img src="${teddySelected.imageUrl}"  alt="${teddySelected.name}" class="w-100">
@@ -173,7 +173,7 @@ fetch("http://localhost:3000/api/teddies/" + id)
         const erreurMessageText = `
             <div class="modal-content border-danger">
                 <div class="modal-header">
-                    <h5 class="modal-title text-danger">Erreur !</h5>
+                    <h3 class="modal-title text-danger h5">Erreur !</h3>
                 </div>
                 <div class="modal-body" id="typeErreur">
                     Le serveur a rencontré une erreur !<br>
