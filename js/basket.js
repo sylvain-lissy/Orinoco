@@ -48,9 +48,9 @@ if (teddyBasket){
     divTeddyItemNone.classList.add("row", "p-0", "m-0", "align-items-center")
     const teddyBasketNoneContent = `
         <div class="col text-center">
-        <img src="img/sadTeddy.jpg" class="w-50">
+        <img src="img/sadTeddy.jpg" class="img-fluid">
         <p>Votre panier est vide... </p>
-        <a href="index.html" class="btn btn-primary btn-block">revenir à l'accueil</a>
+        <a href="index.html" class="btn btn-primary btn-block stretched-link">revenir à l'accueil</a>
         </div>`
     divTeddyItemNone.innerHTML = teddyBasketNoneContent
     teddyBasketNone.appendChild(divTeddyItemNone)
