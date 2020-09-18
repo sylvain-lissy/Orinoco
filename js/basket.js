@@ -1,3 +1,34 @@
+fetch("http://localhost:3000/api/teddies")
+//Gestion d'erreur
+    .then (gestionErreurs)
+    .catch (function(error){
+    //console.log(error)
+        const erreurMessage = document.getElementById("erreurServeur")
+        const erreurMessagePre = document.createElement("div")
+        erreurMessagePre.classList.add("modal-dialog", "modal-dialog-centered")
+        const erreurMessageText = `
+            <div class="modal-content border-danger">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger">Erreur !</h5>
+                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>-->
+                </div>
+                <div class="modal-body" id="typeErreur">
+                    Le serveur a rencontré une erreur !<br>
+                    <code>${error}</code><br>
+                    Essayer de recharger la page ou revenir plus tard.<br>
+                    Nous faisons notre possible pour remédier à ce problème.
+                </div>
+                <div class="modal-footer">
+                    <a href="basket.html" class="btn btn-block btn-danger">Recharger la page</a>
+                </div>
+            </div>`
+        erreurMessagePre.innerHTML = erreurMessageText
+        erreurMessage.appendChild(erreurMessagePre)
+    $('#erreurServeur').modal('show')
+    })
+
 //Construction lien panier avec compteur et tooltip
 const teddyBasket = JSON.parse(localStorage.getItem('adoptionTeddies'))
 const teddyBasketCount = document.getElementById("teddyBasketCount")
@@ -13,7 +44,13 @@ if (teddyBasket){
     teddyBasketLink.innerHTML = teddyBasketText
     teddyBasketCount.appendChild(teddyBasketLink)
 }
-
+//Fonction Gestion Erreurs
+function gestionErreurs(messageErreur) {
+    if (!messageErreur.ok) {
+        throw Error(messageErreur.statusText);
+    }
+    return messageErreur;
+}
     //Construction H2 au nom du teddy
     const teddyName = document.getElementById("teddyH2Count")
     const h2Name = document.createElement("h2")
@@ -100,8 +137,7 @@ if (teddyBasket){
                 event.preventDefault()
                 localStorage.removeItem('adoptionTeddies') 
                 window.location.href ="basket.html"
-        })
-    } 
+        }) 
     //Supprimer un seul Teddy
     // on récupére l'article associé au bouton poubelle
     const RemoveBtn = document.getElementsByClassName('RemoveBtn')
@@ -124,7 +160,7 @@ if (teddyBasket){
             })
         })
     }
-    //Céation du formulaire pour passer commande
+    //Création du formulaire pour passer commande
     //Afficher la modal du formulaire
     const ValiderAdoption = document.getElementById("ValiderAdoption")
     ValiderAdoption.addEventListener("click", function (event) {
@@ -197,7 +233,7 @@ if (teddyBasket){
             //console.log(montantCommande);
             //on crée un contact
             const contact = {
-                lastName: nom.value,
+                alastName: nom.value,
                 firstName: prenom.value,
                 address: adresse.value,
                 city: ville.value,
@@ -230,16 +266,65 @@ if (teddyBasket){
                     } else {
                         event.preventDefault()
                         //console.log('Retour du serveur : ', retourServeur.status)
-                        alert('Erreur rencontrée : ' + retourServeur.status)
+                        //alert('Erreur rencontrée : ' + retourServeur.status)
+                        const erreurMessage = document.getElementById("erreurServeur")
+                        const erreurMessagePre = document.createElement("div")
+                        erreurMessagePre.classList.add("modal-dialog", "modal-dialog-centered")
+                        const erreurMessageText = `
+                            <div class="modal-content border-danger">
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-danger">Erreur !</h5>
+                                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>-->
+                                </div>
+                                <div class="modal-body" id="typeErreur">
+                                    Le serveur a rencontré une erreur !<br>
+                                    <code>${retourServeur.status}</code><br>
+                                    Essayer de recharger la page ou revenir plus tard.<br>
+                                    Nous faisons notre possible pour remédier à ce problème.
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="basket.html" class="btn btn-block btn-danger">Recharger la page</a>
+                                </div>
+                            </div>`
+                        erreurMessagePre.innerHTML = erreurMessageText
+                        erreurMessage.appendChild(erreurMessagePre)
+                        $('#erreurServeur').modal('show')
                     } 
                 } catch (error) {
-                    alert("Erreur : " + error)
+                    //alert("Erreur : " + error)
+                    const erreurMessage = document.getElementById("erreurServeur")
+                    const erreurMessagePre = document.createElement("div")
+                    erreurMessagePre.classList.add("modal-dialog", "modal-dialog-centered")
+                    const erreurMessageText = `
+                        <div class="modal-content border-danger">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-danger">Erreur !</h5>
+                                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>-->
+                            </div>
+                            <div class="modal-body" id="typeErreur">
+                                Le serveur a rencontré une erreur !<br>
+                                <code>${error}</code><br>
+                                Essayer de recharger la page ou revenir plus tard.<br>
+                                Nous faisons notre possible pour remédier à ce problème.
+                            </div>
+                            <div class="modal-footer">
+                                <a href="basket.html" class="btn btn-block btn-danger">Recharger la page</a>
+                            </div>
+                        </div>`
+                    erreurMessagePre.innerHTML = erreurMessageText
+                    erreurMessage.appendChild(erreurMessagePre)
+                    $('#erreurServeur').modal('show')
                 } 
             }
             envoieCommande(infosCommande)
         }else{
             //console.log('Commande non envoyé')   
             //modal erreur
-            $('#erreurServeur').modal('show') 
+            $('#erreurFormulaire').modal('show') 
         }
     })
+}

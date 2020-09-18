@@ -22,7 +22,10 @@
     const montantCommande = localStorage.getItem('montantCommande');
     console.log(montantCommande);
 
-    //Construction DIV recapitulatif commande
+    //Si aucunes données dans le localstorage alors on redirige vers l'accueil
+    if (!numeroCommande && !montantCommande){window.location.href= "index.html"}
+
+    //Construction DIV récapitulatif de commande
     const recapitulatifCommande = document.getElementById("recapitulatifCommande")
     const recapDiv = document.createElement("div")
     recapDiv.classList.add("col-12", "col-md-8", "col-lg-6", "mb-3")
@@ -44,8 +47,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-4 col-md-3">Montant :</div>
-                    <div class="col"><small>${montantCommande}.00 €</small></div>
-                    
+                    <div class="col"><small>${montantCommande}.00 €</small></div> 
                 </div>
             </div>
             <div class="card-footer">

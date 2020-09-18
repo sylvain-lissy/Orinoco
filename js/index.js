@@ -13,9 +13,18 @@ if (teddyBasket){
     teddyBasketLink.innerHTML = teddyBasketText
     teddyBasketCount.appendChild(teddyBasketLink)
 }
+//Fonction Gestion Erreurs
+function gestionErreurs(messageErreur) {
+  if (!messageErreur.ok) {
+      throw Error(messageErreur.statusText);
+  }
+  return messageErreur;
+}
 
 //Connection à la base de données
 fetch("http://localhost:3000/api/teddies")
+  //Gestion d'erreur
+  .then (gestionErreurs)
   //Formatage reponse au format JSON
   .then(teddiesList => teddiesList.json())
   // Recuperation du JSON tableau des oursons //
@@ -38,4 +47,31 @@ fetch("http://localhost:3000/api/teddies")
       divTeddy.innerHTML = text
       mainTeddy.appendChild(divTeddy)
     })
+  })
+  .catch (function(error){
+    //console.log(error)
+    const erreurMessage = document.getElementById("erreurServeur")
+        const erreurMessagePre = document.createElement("div")
+        erreurMessagePre.classList.add("modal-dialog", "modal-dialog-centered")
+        const erreurMessageText = `
+            <div class="modal-content border-danger">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger">Erreur !</h5>
+                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>-->
+                </div>
+                <div class="modal-body" id="typeErreur">
+                    Le serveur a rencontré une erreur !<br>
+                    <code>${error}</code><br>
+                    Essayer de recharger la page ou revenir plus tard.<br>
+                    Nous faisons notre possible pour remédier à ce problème.
+                </div>
+                <div class="modal-footer">
+                    <a href="index.html" class="btn btn-block btn-danger">Recharger la page</a>
+                </div>
+            </div>`
+        erreurMessagePre.innerHTML = erreurMessageText
+        erreurMessage.appendChild(erreurMessagePre)
+    $('#erreurServeur').modal('show')
   })
