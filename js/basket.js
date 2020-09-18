@@ -47,9 +47,10 @@ if (teddyBasket){
     const divTeddyItemNone = document.createElement("div")
     divTeddyItemNone.classList.add("row", "p-0", "m-0", "align-items-center")
     const teddyBasketNoneContent = `
-        <div class="col">
-        <p class="text-center">Votre panier est tristement vide ...</p>
-        <a href="index.html" class="btn btn-primary btn-block stretched-link">revenir à l'accueil</a>
+        <div class="col text-center">
+        <img src="img/sadTeddy.jpg" class="w-50">
+        <p>Votre panier est vide... </p>
+        <a href="index.html" class="btn btn-primary btn-block">revenir à l'accueil</a>
         </div>`
     divTeddyItemNone.innerHTML = teddyBasketNoneContent
     teddyBasketNone.appendChild(divTeddyItemNone)
@@ -127,7 +128,7 @@ function ConstrusctionDuPanier(){
                 localStorage.setItem('adoptionTeddies', JSON.stringify(teddyBasket))
                 JSON.parse(localStorage.getItem('adoptionTeddies'))
                 //si c'est le dernier article, on supprime le localstorage
-                if (RemoveBtn.length === 1) { localstorage.removeItem("adoptionTeddies") }
+                if (RemoveBtn.length === 1) { localStorage.removeItem("adoptionTeddies") }
                 //on recharge la page
                 window.location.href = "basket.html"
             })
