@@ -38,7 +38,7 @@ fetch("http://localhost:3000/api/teddies/" + id)
         //Construction H2 au nom du teddy
         const teddyName = document.getElementById("teddyName")
         const h2Name = document.createElement("h2")
-        h2Name.classList.add("h1", "text-center", "text-primary")
+        h2Name.classList.add("h3", "text-center", "text-primary")
         const h2Text = `${teddySelected.name}`
         h2Name.innerHTML = h2Text
         teddyName.appendChild(h2Name)
@@ -49,9 +49,9 @@ fetch("http://localhost:3000/api/teddies/" + id)
         const divCardText = `
             <div class="card mb-4 mb-lg-0 border-primary shadow">
                 <img src="${teddySelected.imageUrl}" alt="${teddySelected.name}" class="card-img-top" data-toggle="modal" data-target="#teddyZoomModal">
-                <h5 class="card-header text-center">${teddySelected.name}</h5>
+                <h3 class="card-header text-center h5">${teddySelected.name}</h5>
                 <div class="card-body">
-                    <h6 class="card-title">${teddySelected.description}</h6>
+                    <h4 class="card-title h6">${teddySelected.description}</h6>
                     <hr>
                     <form id="AddToBasket">
                         <div class="form-group row text-center input-group is-invalid m-0 py-0 pb-3">

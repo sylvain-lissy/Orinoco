@@ -29,7 +29,7 @@ fetch("http://localhost:3000/api/teddies")
   .then(teddiesList => teddiesList.json())
   // Recuperation du JSON tableau des oursons //
   .then(teddiesList => {
-    //console.log(teddiesList)
+    console.log(teddiesList)
     //Creation du tableau des teddies
     const mainTeddy = document.getElementById("teddies_list")
     teddiesList.forEach(teddyList => {
@@ -39,7 +39,7 @@ fetch("http://localhost:3000/api/teddies")
         <div class="card mb-4 mb-lg-0 border-primary shadow">
           <img src="${teddyList.imageUrl}" alt="${teddyList.name}" class="card-img-top">
           <div class="card-body">
-            <h5 class="card-title">${teddyList.name}</h5>
+            <h3 class="card-title h5">${teddyList.name}</h5>
             <p class="card-text">Prix : ${teddyList.price / 100}.00 €</p>
             <a href="product.html?id=${teddyList._id}" class="btn btn-primary btn-block stretched-link">Adopter ${teddyList.name} ?</a>
           </div>
