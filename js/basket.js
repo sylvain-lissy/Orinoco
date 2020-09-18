@@ -233,7 +233,7 @@ function gestionErreurs(messageErreur) {
             //console.log(montantCommande);
             //on crée un contact
             const contact = {
-                alastName: nom.value,
+                lastName: nom.value,
                 firstName: prenom.value,
                 address: adresse.value,
                 city: ville.value,
