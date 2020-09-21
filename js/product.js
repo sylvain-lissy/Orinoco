@@ -20,32 +20,24 @@ fetch("http://localhost:3000/api/teddies/" + id)
         ficheProduitTeddy(teddySelected)
         //Zoom de la photo du teddy choisi
         zoomTeddyPhoto(teddySelected)
-        //Construction du choix des couleurs
-        const teddyColors = teddySelected.colors
-        const teddyColor = document.getElementById("teddyColor")
-        teddyColors.forEach(color => {
-        const colorOption = document.createElement("option")
-        colorOption.setAttribute("value", color)
-        const textOption = `${color}`
-        colorOption.innerHTML = textOption
-        teddyColor.appendChild(colorOption)
-        })
+        //Choix des couleurs du teddy choisi
+        colorTeddyOptions(teddySelected)
         //Ajout au panier 
         const addTeddyToLocalStorage = document.getElementById("submit")
         addTeddyToLocalStorage.addEventListener("click", function (event) {
             event.preventDefault()
             //D'abord afficher l'alerte
             $('#teddyAlertMessage').modal('show')
-                //Créer l'ajout dans localstorage
-                teddyAdopter = {teddyName: teddySelected.name, 
-                                teddyColor: teddyColor.value, 
-                                teddyId: teddySelected._id, 
-                                teddyQuantity: 1, 
-                                teddyPrice: teddySelected.price / 100,
-                                teddyImageUrl: teddySelected.imageUrl
-                }
-                //console.log(teddyAdopter)
-            //Création du message pour l'alerte
+            //Créer l'ajout dans localstorage
+            teddyAdopter = {teddyName: teddySelected.name, 
+                            teddyColor: teddyColor.value, 
+                            teddyId: teddySelected._id, 
+                            teddyQuantity: 1, 
+                            teddyPrice: teddySelected.price / 100,
+                            teddyImageUrl: teddySelected.imageUrl
+            }
+            //console.log(teddyAdopter)
+            //Création du message pour signifier l'adoption
             const teddyAlertMessage = document.getElementById("teddyAlertMessage")
             const teddyAlertMessageP = document.createElement("div")
             teddyAlertMessageP.classList.add("modal-dialog")
@@ -76,16 +68,10 @@ fetch("http://localhost:3000/api/teddies/" + id)
                 event.preventDefault()
                 teddyAuPanier = JSON.parse(localStorage.getItem('adoptionTeddies'))
                 if(teddyAuPanier) {
-                    teddyAuPanier.push(teddyAdopter)
-                    localStorage.setItem('adoptionTeddies', JSON.stringify(teddyAuPanier))
-                    //console.log(teddyAuPanier);
-                    window.location.href ="index.html"
+                    addToBasketGoToIndex()
                 }else{
                     teddyAuPanier = []
-                    teddyAuPanier.push(teddyAdopter)
-                    localStorage.setItem('adoptionTeddies', JSON.stringify(teddyAuPanier))
-                    //console.log(teddyAuPanier)
-                    window.location.href ="index.html"                
+                    addToBasketGoToIndex()
                 }
             })
             //Ensuite au clic VOIR, on stocke les données puis on redirige vers le panier
@@ -94,16 +80,10 @@ fetch("http://localhost:3000/api/teddies/" + id)
                 event.preventDefault()
                 teddyAuPanier = JSON.parse(localStorage.getItem('adoptionTeddies'))
                 if(teddyAuPanier) {
-                    teddyAuPanier.push(teddyAdopter)
-                    localStorage.setItem('adoptionTeddies', JSON.stringify(teddyAuPanier))
-                    //console.log(teddyAuPanier)
-                    window.location.href ="basket.html"
+                    addToBasketGoToBasket()
                 }else{
                     teddyAuPanier = []
-                    teddyAuPanier.push(teddyAdopter)
-                    localStorage.setItem('adoptionTeddies', JSON.stringify(teddyAuPanier))
-                    //console.log(teddyAuPanier)
-                    window.location.href ="basket.html"                
+                    addToBasketGoToBasket()
                 }
             })
         })
@@ -151,7 +131,7 @@ function ficheProduitTeddy(teddySelected){
 }
 
 //Construction Zoom Modal
-function zommTeddyPhoto(teddySelected){
+function zoomTeddyPhoto(teddySelected){
     const teddyZoom = document.getElementById("teddyZoomModal")
     const divZoom = document.createElement("div")
     divZoom.classList.add("modal-dialog", "modal-xl")
@@ -163,4 +143,30 @@ function zommTeddyPhoto(teddySelected){
         </div>`
     divZoom.innerHTML = divZoomText
     teddyZoom.appendChild(divZoom)
+}
+//Construction du choix des couleurs
+function colorTeddyOptions(teddySelected){
+    const teddyColors = teddySelected.colors
+    const teddyColor = document.getElementById("teddyColor")
+    teddyColors.forEach(color => {
+    const colorOption = document.createElement("option")
+    colorOption.setAttribute("value", color)
+    const textOption = `${color}`
+    colorOption.innerHTML = textOption
+    teddyColor.appendChild(colorOption)
+    })
+}
+
+//Ajout au panier + retour à l'index
+function addToBasketGoToIndex(){
+    teddyAuPanier.push(teddyAdopter)
+    localStorage.setItem('adoptionTeddies', JSON.stringify(teddyAuPanier))
+    window.location.href ="index.html" 
+}
+
+//Ajout au panier + retour à l'index
+function addToBasketGoToBasket(){
+    teddyAuPanier.push(teddyAdopter)
+    localStorage.setItem('adoptionTeddies', JSON.stringify(teddyAuPanier))
+    window.location.href ="basket.html" 
 }
