@@ -121,6 +121,20 @@ function ConstrusctionDuPanier(){
             event.preventDefault()
             $('#FormCommand').modal('show')      
     })
+    // Verification validité prénom, nom, ville
+    function valideDivers(value) { 
+        return /^[A-Z-a-z\s]{3,40}$/.test(value)
+    }
+
+    // Verification validité adresse
+    function valideAdresse(value) { 
+        return /^[A-Z-a-z-0-9\s]{5,80}$/.test(value)
+    }
+
+    // Verification validité mail
+    function valideEmail(value) {
+        return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)
+    }
     // Vérification de la validité du nom
     const nom = document.getElementById("formNom")
     nom.addEventListener("change", function (event) {
