@@ -1,26 +1,13 @@
-    //Construction lien panier avec compteur et tooltip
-    const teddyBasket = JSON.parse(localStorage.getItem('adoptionTeddies'))
-    const teddyBasketCount = document.getElementById("teddyBasketCount")
-    const teddyBasketLink = document.createElement("a")
-    teddyBasketLink.classList.add("nav-link", "text-primary", "h5")
-    teddyBasketLink.setAttribute("href", "basket.html")
-    if (teddyBasket){
-        const teddyBasketText = `Panier <span class="badge badge-pill badge-dark text-light">${teddyBasket.length}</span>`
-        teddyBasketLink.innerHTML = teddyBasketText
-        teddyBasketCount.appendChild(teddyBasketLink)
-    }else{
-        const teddyBasketText = `Panier <span class="badge badge-pill badge-dark text-light">0</span>`
-        teddyBasketLink.innerHTML = teddyBasketText
-        teddyBasketCount.appendChild(teddyBasketLink)
-    }
+//appel de la fonction Compteur du panier de la navbar
+CompteurPanierNavBar()
 
     // récupération de l'id de la commande
     const numeroCommande = localStorage.getItem('numeroCommande');
-    console.log(numeroCommande);
+    //console.log(numeroCommande);
 
     // récupération du prix total de la commande
     const montantCommande = localStorage.getItem('montantCommande');
-    console.log(montantCommande);
+    //console.log(montantCommande);
 
     //Si aucunes données dans le localstorage alors on redirige vers l'accueil
     if (!numeroCommande && !montantCommande){window.location.href= "index.html"}
