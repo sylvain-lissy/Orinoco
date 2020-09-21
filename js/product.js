@@ -1,25 +1,5 @@
-//Construction lien panier avec compteur et tooltip
-const teddyBasket = JSON.parse(localStorage.getItem('adoptionTeddies'))
-const teddyBasketCount = document.getElementById("teddyBasketCount")
-const teddyBasketLink = document.createElement("a")
-teddyBasketLink.classList.add("nav-link", "text-primary", "h5")
-teddyBasketLink.setAttribute("href", "basket.html")
-if (teddyBasket) {
-    const teddyBasketText = `Panier <span class="badge badge-pill badge-dark text-light">${teddyBasket.length}</span>`
-    teddyBasketLink.innerHTML = teddyBasketText
-    teddyBasketCount.appendChild(teddyBasketLink)
-}else {
-    const teddyBasketText = `Panier <span class="badge badge-pill badge-dark text-light">0</span>`
-    teddyBasketLink.innerHTML = teddyBasketText
-    teddyBasketCount.appendChild(teddyBasketLink)
-}
-//Fonction Gestion Erreurs
-function gestionErreurs(messageErreur) {
-    if (!messageErreur.ok) {
-        throw Error(messageErreur.statusText);
-    }
-    return messageErreur;
-  }
+//appel de la fonction Compteur du panier de la navbar
+CompteurPanierNavBar()
   
 //récupération de l'ID de l'ourson de la page
 const queryString = window.location.search;
@@ -31,52 +11,15 @@ if (id === null) {window.location.href ="index.html"}
 
 //Connection à la base de données
 fetch("http://localhost:3000/api/teddies/" + id)
-    .then (gestionErreurs)
     .then(teddySelected => teddySelected.json())
     .then(teddySelected => {
         //console.log(teddySelected)
-        //Construction H2 au nom du teddy
-        const teddyName = document.getElementById("teddyName")
-        const h2Name = document.createElement("h2")
-        h2Name.classList.add("h3", "text-center", "text-primary")
-        const h2Text = `${teddySelected.name}`
-        h2Name.innerHTML = h2Text
-        teddyName.appendChild(h2Name)
-        //Construction DIV fiche produit teddy
-        const teddyCard = document.getElementById("teddyCard")
-        const divCard = document.createElement("div")
-        divCard.classList.add("col-12", "col-md-8", "col-lg-6", "mb-3")
-        const divCardText = `
-            <div class="card mb-4 mb-lg-0 border-primary shadow">
-                <img src="${teddySelected.imageUrl}" alt="${teddySelected.name}" class="card-img-top" data-toggle="modal" data-target="#teddyZoomModal">
-                <h3 class="card-header text-center h5">${teddySelected.name}</h3>
-                <div class="card-body">
-                    <h4 class="card-title h6">${teddySelected.description}</h4>
-                    <hr>
-                    <form id="AddToBasket">
-                        <div class="form-group row text-center input-group is-invalid m-0 py-0 pb-3">
-                            <select class="form-control-sm col-7 p-0" id="teddyColor" required>
-                            </select>
-                            <p class="card-text col-5 text-right font-weight-bold pr-0 pl-1">Prix : ${teddySelected.price / 100}.00 €</p>  
-                        </div>
-                        <button type="submit" name="add" id="submit" class="btn btn-sm btn-success btn-block">Adopter ${teddySelected.name} ?</button>
-                    </form>
-                </div>
-            </div>`
-        divCard.innerHTML = divCardText
-        teddyCard.appendChild(divCard)
-        //Construction Zoom Modal
-        const teddyZoom = document.getElementById("teddyZoomModal")
-        const divZoom = document.createElement("div")
-        divZoom.classList.add("modal-dialog", "modal-xl")
-        const divZoomText=`
-            <div class="modal-content">
-                <div class="modal-body">
-                    <img src="${teddySelected.imageUrl}" class="w-100">
-                </div>
-            </div>`
-        divZoom.innerHTML = divZoomText
-        teddyZoom.appendChild(divZoom)
+        //H2 au nom du teddy choisi
+        h2TeddyName(teddySelected)
+        //Div de la fiche produit du teddy choisi
+        ficheProduitTeddy(teddySelected)
+        //Zoom de la photo du teddy choisi
+        zoomTeddyPhoto(teddySelected)
         //Construction du choix des couleurs
         const teddyColors = teddySelected.colors
         const teddyColor = document.getElementById("teddyColor")
@@ -165,27 +108,59 @@ fetch("http://localhost:3000/api/teddies/" + id)
             })
         })
     })
-    .catch (function(error){
-    //console.log(error)
-        const erreurMessage = document.getElementById("erreurServeur")
-        const erreurMessagePre = document.createElement("div")
-        erreurMessagePre.classList.add("modal-dialog", "modal-dialog-centered")
-        const erreurMessageText = `
-            <div class="modal-content border-danger">
-                <div class="modal-header">
-                    <h3 class="modal-title text-danger h5">Erreur !</h3>
-                </div>
-                <div class="modal-body" id="typeErreur">
-                    Le serveur a rencontré une erreur !<br>
-                    <code>${error}</code><br>
-                    Essayer de recharger la page ou revenir plus tard.<br>
-                    Nous faisons notre possible pour remédier à ce problème.
-                </div>
-                <div class="modal-footer">
-                    <a href="product.html?id=${id}" class="btn btn-block btn-danger">Recharger la page</a>
-                </div>
-            </div>`
-        erreurMessagePre.innerHTML = erreurMessageText
-        erreurMessage.appendChild(erreurMessagePre)
-        $('#erreurServeur').modal('show')
-    })
+    //Gestion d'erreur
+  .catch (function(error){
+    gestionErreurMessage(error)
+  })
+
+
+  //Construction H2 au nom du teddy
+function h2TeddyName(teddySelected){
+    const teddyName = document.getElementById("teddyName")
+    const h2Name = document.createElement("h2")
+    h2Name.classList.add("h3", "text-center", "text-primary")
+    const h2Text = `${teddySelected.name}`
+    h2Name.innerHTML = h2Text
+    teddyName.appendChild(h2Name)
+}
+
+//Construction DIV fiche produit teddy
+function ficheProduitTeddy(teddySelected){
+    const teddyCard = document.getElementById("teddyCard")
+    const divCard = document.createElement("div")
+    divCard.classList.add("col-12", "col-md-8", "col-lg-6", "mb-3")
+    const divCardText = `
+        <div class="card mb-4 mb-lg-0 border-primary shadow">
+            <img src="${teddySelected.imageUrl}" alt="${teddySelected.name}" class="card-img-top" data-toggle="modal" data-target="#teddyZoomModal">
+            <h3 class="card-header text-center h5">${teddySelected.name}</h3>
+            <div class="card-body">
+                <h4 class="card-title h6">${teddySelected.description}</h4>
+                <hr>
+                <form id="AddToBasket">
+                    <div class="form-group row text-center input-group is-invalid m-0 py-0 pb-3">
+                        <select class="form-control-sm col-7 p-0" id="teddyColor" required>
+                        </select>
+                        <p class="card-text col-5 text-right font-weight-bold pr-0 pl-1">Prix : ${teddySelected.price / 100}.00 €</p>  
+                    </div>
+                    <button type="submit" name="add" id="submit" class="btn btn-sm btn-success btn-block">Adopter ${teddySelected.name} ?</button>
+                </form>
+            </div>
+        </div>`
+    divCard.innerHTML = divCardText
+    teddyCard.appendChild(divCard)
+}
+
+//Construction Zoom Modal
+function zommTeddyPhoto(teddySelected){
+    const teddyZoom = document.getElementById("teddyZoomModal")
+    const divZoom = document.createElement("div")
+    divZoom.classList.add("modal-dialog", "modal-xl")
+    const divZoomText=`
+        <div class="modal-content">
+            <div class="modal-body">
+                <img src="${teddySelected.imageUrl}" class="w-100">
+            </div>
+        </div>`
+    divZoom.innerHTML = divZoomText
+    teddyZoom.appendChild(divZoom)
+}

@@ -1,28 +1,8 @@
-//Construction lien panier avec compteur et tooltip
-const teddyBasket = JSON.parse(localStorage.getItem('adoptionTeddies'))
-const teddyBasketCount = document.getElementById("teddyBasketCount")
-const teddyBasketLink = document.createElement("a")
-teddyBasketLink.classList.add("nav-link", "text-primary", "h5")
-teddyBasketLink.setAttribute("href", "basket.html")
-if (teddyBasket){
-    const teddyBasketText = `Panier <span class="badge badge-pill badge-dark text-light">${teddyBasket.length}</span>`
-    teddyBasketLink.innerHTML = teddyBasketText
-    teddyBasketCount.appendChild(teddyBasketLink)
-}else{
-    const teddyBasketText = `Panier <span class="badge badge-pill badge-dark text-light">0</span>`
-    teddyBasketLink.innerHTML = teddyBasketText
-    teddyBasketCount.appendChild(teddyBasketLink)
-}
-
-//Fonction Gestion Erreurs
-function gestionErreurs(messageErreur) {
-    if (!messageErreur.ok) {
-        throw Error(messageErreur.statusText);
-    }
-    return messageErreur;
-}
+//appel de la fonction Compteur du panier de la navbar
+CompteurPanierNavBar()
 
 //Construction H2 au nom du teddy
+const teddyBasket = JSON.parse(localStorage.getItem('adoptionTeddies'))
 const teddyName = document.getElementById("teddyH2Count")
 const h2Name = document.createElement("h2")
 h2Name.classList.add("h3", "text-center", "text-primary")
@@ -141,12 +121,6 @@ function ConstrusctionDuPanier(){
             event.preventDefault()
             $('#FormCommand').modal('show')      
     })
-    // Verification validité prénom, nom, ville
-    function valideDivers(value) { return /^[A-Z-a-z\s]{3,40}$/.test(value)}
-    // Verification validité adresse
-    function valideAdresse(value) { return /^[A-Z-a-z-0-9\s]{5,80}$/.test(value)}
-    // Verification validité mail
-    function valideEmail(value) { return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)}
     // Vérification de la validité du nom
     const nom = document.getElementById("formNom")
     nom.addEventListener("change", function (event) {
@@ -240,11 +214,11 @@ function ConstrusctionDuPanier(){
                     } else {
                         event.preventDefault()
                         //alert("1er Erreur : " + retourServeur.status + ': ' + retourServeur.statusText)    
-                        affichageMessageErreur(retourServeur.status + ': ' + retourServeur.statusText)
+                        gestionErreurMessage(retourServeur.status + ': ' + retourServeur.statusText)
                     } 
                 } catch (error) {
                     //alert("2nd Erreur : " + error)
-                    affichageMessageErreur(error)
+                    gestionErreurMessage(error)
                 } 
             }
             envoieCommande(infosCommande)
@@ -254,32 +228,4 @@ function ConstrusctionDuPanier(){
             $('#erreurFormulaire').modal('show') 
         }
     })
-}
-
-//fonction affichage du message d'erreur
-function affichageMessageErreur(messageCodeErreur){
-    const erreurMessage = document.getElementById("erreurServeur")
-    const erreurMessagePre = document.createElement("div")
-    erreurMessagePre.classList.add("modal-dialog", "modal-dialog-centered")
-    const erreurMessageText = `
-        <div class="modal-content border-danger">
-            <div class="modal-header">
-                <h3 class="modal-title text-danger h5">Erreur !</h3>
-                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>-->
-            </div>
-            <div class="modal-body" id="typeErreur">
-                Le serveur a rencontré une erreur !<br>
-                <code>${messageCodeErreur}</code><br>
-                Essayer de recharger la page ou revenir plus tard.<br>
-                Nous faisons notre possible pour remédier à ce problème.
-            </div>
-            <div class="modal-footer">
-                <a href="basket.html" class="btn btn-block btn-danger">Recharger la page</a>
-            </div>
-        </div>`
-    erreurMessagePre.innerHTML = erreurMessageText
-    erreurMessage.appendChild(erreurMessagePre)
-    $('#erreurServeur').modal('show')
 }
