@@ -1,13 +1,11 @@
 //appel de la fonction Compteur du panier de la navbar
 CompteurPanierNavBar()
-  
 //récupération de l'ID de l'ourson de la page
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const id = urlParams.get('id');
 //si aucun ID dans l'URL alors on redirige vers l'accueil
 if (id === null) {window.location.href ="index.html"}
-
 //Connection à la base de données et ajout au panier
 fetch("http://localhost:3000/api/teddies/" + id)
     .then(teddySelected => teddySelected.json())
@@ -21,7 +19,6 @@ fetch("http://localhost:3000/api/teddies/" + id)
     .catch (function(error){
         gestionErreurMessage(error)
     })
-
 ////////////////////////////////////////////////////// FUNCTIONS //////////////////////////////////////////////////////
 // Construction H2 au nom du teddy
 function h2TeddyName(teddySelected){
@@ -36,7 +33,7 @@ function ficheProduitTeddy(teddySelected){
     const teddyCard = document.getElementById("teddyCard")
     const divCard = document.createElement("div")
     divCard.classList.add("col-12", "col-md-8", "col-lg-6", "mb-3")
-    const divCardText = `
+    divCard.innerHTML = `
         <div class="card mb-4 mb-lg-0 border-primary shadow">
             <img src="${teddySelected.imageUrl}" alt="${teddySelected.name}" class="card-img-top" data-toggle="modal" data-target="#teddyZoomModal">
             <h3 class="card-header text-center h5">${teddySelected.name}</h3>
@@ -53,7 +50,6 @@ function ficheProduitTeddy(teddySelected){
                 </form>
             </div>
         </div>`
-    divCard.innerHTML = divCardText
     teddyCard.appendChild(divCard)
 }
 // Construction Zoom Modal
@@ -61,13 +57,12 @@ function zoomTeddyPhoto(teddySelected){
     const teddyZoom = document.getElementById("teddyZoomModal")
     const divZoom = document.createElement("div")
     divZoom.classList.add("modal-dialog", "modal-xl")
-    const divZoomText=`
+    divZoom.innerHTML = `
         <div class="modal-content">
             <div class="modal-body">
                 <img src="${teddySelected.imageUrl}" class="w-100">
             </div>
         </div>`
-    divZoom.innerHTML = divZoomText
     teddyZoom.appendChild(divZoom)
 }
 // Construction du choix des couleurs
@@ -105,43 +100,42 @@ function modalAddTeddyToBasket(teddySelected){
     const teddyAlertMessage = document.getElementById("teddyAlertMessage")
     const teddyAlertMessageP = document.createElement("div")
     teddyAlertMessageP.classList.add("modal-dialog")
-    const teddyAlertMessageT = `
+    teddyAlertMessageP.innerHTML = `
         <div class="modal-content">
-        <div class="modal-header">
-            <h3 class="modal-title h5" id="teddyAlertMessageModalTitle">Adoption de ${teddySelected.name}</h3>
-        </div>
-        <div class="modal-body">
-        <img src="${teddySelected.imageUrl}"  alt="${teddySelected.name}" class="w-100">
-        <hr>
-        Vous avez décidé d'adopter <strong>${teddySelected.name}</strong>
-        qui sera de couleur <strong>${teddyColor.value}</strong>
-        pour un montant de <strong>${teddySelected.price / 100}.00 €</strong>
-        </div>
-        <div class="modal-footer">
-            <div class="row w-100 justify-content-spacebetween">
-                <div class="col-6"><a href="index.html" class="btn btn-success btn-block" id="continuerAdoption">Continuer d'adopter</a></div>
-                <div class="col-6"><a href="basket.html" class="btn btn-success btn-block" id="finaliserAdoption">Voir mes adoptions</a></div>
+            <div class="modal-header">
+                <h3 class="modal-title h5" id="teddyAlertMessageModalTitle">Adoption de ${teddySelected.name}</h3>
             </div>
-        </div>
+            <div class="modal-body">
+                <img src="${teddySelected.imageUrl}"  alt="${teddySelected.name}" class="w-100">
+                <hr>
+                Vous avez décidé d'adopter <strong>${teddySelected.name}</strong>
+                qui sera de couleur <strong>${teddyColor.value}</strong>
+                pour un montant de <strong>${teddySelected.price / 100}.00 €</strong>
+            </div>
+            <div class="modal-footer">
+                <div class="row w-100 justify-content-spacebetween">
+                    <div class="col-6"><a href="index.html" class="btn btn-success btn-block" id="continuerAdoption">Continuer d'adopter</a></div>
+                    <div class="col-6"><a href="basket.html" class="btn btn-success btn-block" id="finaliserAdoption">Voir mes adoptions</a></div>
+                </div>
+            </div>
         </div>`
-    teddyAlertMessageP.innerHTML = teddyAlertMessageT
     teddyAlertMessage.appendChild(teddyAlertMessageP)
 }
 // Ajouter au panier et aller à l'index
 function addToBasketGoToIndex(){
     addTeddyGoIndex = document.getElementById("continuerAdoption")
     addTeddyGoIndex.addEventListener("click", function (event) {
-    firstAdd()
+        firstAdd()
     })
 }
 // Ajouter au panier et aller au panier
 function addToBasketGoToBasket(){
     const addTeddyGoBasket = document.getElementById("finaliserAdoption")
     addTeddyGoBasket.addEventListener("click", function (event) {
-    firstAdd()
+        firstAdd()
     })
 }
-// Ajouter au panier 
+// Ajouter au panier...
 function firstAdd(){
     teddyAuPanier = JSON.parse(localStorage.getItem('adoptionTeddies'))
     if (teddyAuPanier) {
@@ -151,8 +145,7 @@ function firstAdd(){
         thenRedirect()
     }    
 }
-
-// Puis rediriger
+// ...puis rediriger
 function thenRedirect(){
     teddyAuPanier.push(teddyAdopter)
     localStorage.setItem('adoptionTeddies', JSON.stringify(teddyAuPanier))

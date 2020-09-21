@@ -1,6 +1,5 @@
 //appel de la fonction Compteur du panier de la navbar
 CompteurPanierNavBar()
-
 //Connection à la base de données
 fetch("http://localhost:3000/api/teddies")
     //Formatage reponse au format JSON
@@ -13,7 +12,6 @@ fetch("http://localhost:3000/api/teddies")
     .catch (function(error){
         gestionErreurMessage(error)
     })
-
 ////////////////////////////////////////////////////// FUNCTIONS //////////////////////////////////////////////////////
 // Fonction de création du tableau des teddies
 function tableauTeddies(teddiesList){
