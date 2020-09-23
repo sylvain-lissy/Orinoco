@@ -5,15 +5,17 @@ const numeroCommande = localStorage.getItem('numeroCommande');
 // récupération du prix total de la commande
 const montantCommande = localStorage.getItem('montantCommande');
 //Si aucunes données dans le localstorage alors on redirige vers l'accueil
-if (!numeroCommande && !montantCommande){window.location.href= "index.html"}
+//if (!numeroCommande && !montantCommande){window.location.href= "index.html"}
 //Construction DIV récapitulatif de commande
 const recapitulatifCommande = document.getElementById("recapitulatifCommande")
 const recapDiv = document.createElement("div")
 recapDiv.classList.add("col-12", "col-md-8", "col-lg-6", "mb-3")
 recapDiv.innerHTML = `
     <div class="card mb-4 mb-lg-0 border-primary shadow">
+        <img src="img/happyTeddy.jpg" class="w-50 align-self-center">
         <h3 class="card-header text-center h5">Merci de votre confiance !</h3>
         <div class="card-body">
+            <!--<img src="img/sadTeddy.jpg" class="img-fluid">-->
             <h4 class="h6">Nous vous confirmons votre adoption.</h4>
             <p>Toute l'équipe d'Ori-Bears vous remercie  pour votre geste.</p>
             <p>Vos petits oursons arriveront très prochainement chez vous.</p>
