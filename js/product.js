@@ -17,6 +17,7 @@ fetch("http://localhost:3000/api/teddies/" + id)
         addTeddyToBasketAndRedirect(teddySelected)
     })
     .catch (function(error){
+        if (error == "TypeError: Cannot read property 'forEach' of undefined"){window.location.href ="index.html"}
         gestionErreurMessage(error)
     })
 ////////////////////////////////////////////////////// FUNCTIONS //////////////////////////////////////////////////////
