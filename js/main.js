@@ -36,3 +36,10 @@ function gestionErreurMessage(error){
     erreurMessage.appendChild(erreurMessagePre)
     $('#erreurServeur').modal('show')
 }
+// Gestion des erreurs 404 et 500
+function handleErrors(response) {
+    if (!response.ok) {
+        window.location.href ="index.html"
+    }
+    return response;
+}

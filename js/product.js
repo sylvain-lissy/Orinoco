@@ -1,13 +1,14 @@
-//appel de la fonction Compteur du panier de la navbar
+// Appel de la fonction Compteur du panier de la navbar
 CompteurPanierNavBar()
-//récupération de l'ID de l'ourson de la page
+// Récupération de l'ID de l'ourson de la page
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const id = urlParams.get('id');
-//si aucun ID dans l'URL alors on redirige vers l'accueil
+// Si aucun ID dans l'URL alors on redirige vers l'accueil
 if (id === null) {window.location.href ="index.html"}
-//Connection à la base de données et ajout au panier
+// Connection à la base de données et ajout au panier
 fetch("http://localhost:3000/api/teddies/" + id)
+    .then(handleErrors)
     .then(teddySelected => teddySelected.json())
     .then(teddySelected => {
         h2TeddyName(teddySelected)
@@ -17,7 +18,6 @@ fetch("http://localhost:3000/api/teddies/" + id)
         addTeddyToBasketAndRedirect(teddySelected)
     })
     .catch (function(error){
-        if (error == "TypeError: Cannot read property 'forEach' of undefined"){window.location.href ="index.html"}
         gestionErreurMessage(error)
     })
 ////////////////////////////////////////////////////// FUNCTIONS //////////////////////////////////////////////////////
