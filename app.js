@@ -10,7 +10,7 @@ const furnitureRoutes = require('./routes/furniture');
 const app = express();
 
 mongoose.connect(
-  'mongodb+srv://lissysylvain:<password>@cluster0.hiwvdyh.mongodb.net/?retryWrites=true&w=majority',
+  'mongodb+srv://lissysylvain:Ls280Vb313@cluster0.hiwvdyh.mongodb.net/?retryWrites=true&w=majority',
   //'mongodb+srv://will:nAcmfCoHGDgzrCHG@cluster0-pme76.mongodb.net/test?retryWrites=true',
   { useNewUrlParser: true })
   .then(() => {
