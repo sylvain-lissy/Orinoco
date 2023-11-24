@@ -10,7 +10,8 @@ const furnitureRoutes = require('./routes/furniture');
 const app = express();
 
 mongoose.connect(
-  'mongodb+srv://will:nAcmfCoHGDgzrCHG@cluster0-pme76.mongodb.net/test?retryWrites=true',
+  'mongodb+srv://lissysylvain:<password>@cluster0.hiwvdyh.mongodb.net/?retryWrites=true&w=majority',
+  //'mongodb+srv://will:nAcmfCoHGDgzrCHG@cluster0-pme76.mongodb.net/test?retryWrites=true',
   { useNewUrlParser: true })
   .then(() => {
     console.log('Successfully connected to MongoDB Atlas!');
